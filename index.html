@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bones &amp; Imaging Quiz</title>
+<style>
+:root{--bg:#f3f6f4;--card:#fff;--ink:#14231e;--mut:#5d6e68;--line:#d4ddd9;--acc:#0f766e;--ok:#15803d;--okb:#dcfce7;--bad:#b91c1c;--badb:#fee2e2;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1714;--card:#17241f;--ink:#e8f1ed;--mut:#9fb2ab;--line:#2c3f38;--acc:#2dd4bf;--ok:#4ade80;--okb:#12351f;--bad:#f87171;--badb:#3b1616}}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 Georgia,"Times New Roman",serif;min-height:100%}
+main{max-width:640px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:30px;line-height:1.15;margin:8px 0 6px}
+p{margin:0 0 12px}.mut{color:var(--mut);font-size:14px}
+button{font:inherit;cursor:pointer;color:inherit}
+.btn{display:block;width:100%;padding:14px 16px;margin:10px 0;border-radius:12px;border:2px solid var(--acc);background:var(--card);text-align:left}
+.btn b{display:block}.btn.main{background:var(--acc);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn.main{color:#06201c}}
+:root[data-theme="dark"] .btn.main{color:#06201c}
+.bar{height:8px;background:var(--line);border-radius:8px;overflow:hidden;margin:8px 0 14px}
+.bar i{display:block;height:100%;background:var(--acc);transition:width .3s}
+.top{display:flex;justify-content:space-between;font-size:14px;color:var(--mut)}
+.tag{display:inline-block;font-size:13px;color:var(--acc);margin-bottom:6px}
+.q{font-size:20px;line-height:1.35;margin:4px 0 16px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;padding:13px 14px;margin:8px 0;background:var(--card);border:2px solid var(--line);border-radius:12px}
+.opt span{font-weight:700;color:var(--acc);min-width:18px}
+.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.opt.ok{border-color:var(--ok);background:var(--okb)}.opt.no{border-color:var(--bad);background:var(--badb)}
+.opt[disabled]{cursor:default}
+.fb{padding:12px 14px;border-radius:12px;background:var(--card);border:2px solid var(--line);margin:12px 0}
+.fb.ok{border-color:var(--ok)}.fb.no{border-color:var(--bad)}
+.big{font-size:56px;font-weight:700;color:var(--acc);margin:6px 0 0;line-height:1}
+.row{display:flex;align-items:center;gap:10px;font-size:14px;margin:6px 0}
+.row .bar{flex:1;margin:0}.row div:first-child{width:46%}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style></head><body><main id="app"></main>
+<script>
+var Q=[
+["Which imaging test is usually the first choice for a suspected knee fracture?",["DEXA","Plain X-ray","MRI","Ultrasound"],1,"Plain X-ray is the usual first test for a suspected fracture."],
+["X-ray suggests a fracture, but you need the detailed bone and fracture pattern for planning. Best test?",["CT","DEXA","Ultrasound","ECG"],0,"CT gives detailed cross-sectional bone images, ideal for complex fractures."],
+["X-ray is clear, but the knee feels unstable. Which test best shows deep ligaments?",["DEXA","Plain X-ray","MRI","CT only"],2,"MRI shows ligaments and other deep soft tissues well."],
+["Osteoporosis risk factors: which test measures bone mineral density?",["MRI","DEXA","Ultrasound","Plain X-ray"],1,"DEXA (DXA) is designed to measure bone mineral density."],
+["Which division includes the skull, spine and thoracic cage?",["Appendicular skeleton","Axial skeleton","Pelvic skeleton","Peripheral skeleton"],1,"Axial = 80 bones: skull, vertebral column, hyoid, ossicles, thoracic cage."],
+["How many bones make up the adult appendicular skeleton?",["80","126","60","206"],1,"126 = 60 upper limb + 60 lower limb + 4 pectoral girdle + 2 pelvic girdle."],
+["Which is the longest bone in the body?",["Tibia","Humerus","Femur","Fibula"],2,"The femur is the longest bone."],
+["A bone that acts as a lever and transmits longitudinal force (femur, radius) is a…",["Short bone","Flat bone","Long bone","Irregular bone"],2,"Long bones act as levers and transmit longitudinal forces."],
+["Carpals and tarsals provide strength and stability. They are…",["Short bones","Sesamoid bones","Irregular bones","Flat bones"],0,"Short bones: roughly cube-shaped, built for strength and stability."],
+["Which bone type improves a muscle’s mechanical leverage, like the patella?",["Flat bone","Sesamoid bone","Sutural bone","Irregular bone"],1,"Sesamoid bones develop within tendons to improve leverage."],
+["Sternum, ribs and scapula are which category?",["Long bones","Irregular bones","Flat bones","Short bones"],2,"Flat bones protect and give broad muscle attachment."],
+["Which tissue forms the dense outer shell of long bones (about 80% of skeletal mass)?",["Cancellous bone","Spongy bone","Compact bone","Subchondral bone"],2,"Compact (cortical) bone: dense outer shell, about 80%."],
+["Spongy (cancellous) bone is roughly what share of the adult skeleton?",["20%","50%","80%","90%"],0,"Spongy bone is the inner porous network, about 20%."],
+["Which fibrous structure binds muscle to bone to transmit force?",["Ligament","Tendon","Cartilage","Bursa"],1,"Tendons connect muscle to bone."],
+["Which fibrous structure anchors bone to bone and limits joint motion?",["Tendon","Aponeurosis","Ligament","Enthesis"],2,"Ligaments connect bone to bone and stabilise joints."],
+["Which avascular tissue covers joint surfaces, cutting friction and absorbing shock?",["Hyaline cartilage","Fibrocartilage","Elastic cartilage","Sutural tissue"],0,"Smooth hyaline (articular) cartilage covers joint surfaces."],
+["Stiffest cartilage, resists compression, in intervertebral discs and the pubic symphysis?",["Elastic cartilage","Hyaline cartilage","Fibrocartilage","Articular synovial lining"],2,"Fibrocartilage is the stiffest type."],
+["The external ear is mainly which cartilage?",["Fibrocartilage","Hyaline cartilage","Elastic cartilage","Calcified cartilage"],2,"Elastic cartilage is the most flexible type, forming the external ear."],
+["Joints held by dense fibrous tissue with little or no movement (cranial sutures) are…",["Synovial joints","Fibrous joints","Cartilaginous joints","Amphiarthrodial joints"],1,"Fibrous joints: sutures, syndesmoses."],
+["Vertebral body connections and the pubic symphysis are which joint type?",["Fibrous joints","Synovial joints","Cartilaginous joints","Gomphosis joints"],2,"Cartilaginous joints are united by cartilage, allowing limited flexibility."],
+["Which lining secretes fluid to lubricate the joint and nourish articular cartilage?",["Fibrous capsule","Synovial membrane","Subchondral cortex","Periosteum"],1,"The synovial membrane secretes synovial fluid."],
+["In the ABCS X-ray checklist, what does ‘A’ stand for?",["Attenuation","Alignment","Articular integrity","Apex"],1,"A = Alignment: position, displacement, dislocation."],
+["In the ‘C’ step of ABCS, what do you evaluate?",["Cortical outline continuity","Soft tissue gas or swelling","Cartilage / joint space narrowing","Spinal angulation angle"],2,"C = Cartilage: joint space narrowing or irregularity."],
+["Which X-ray measurement evaluates spinal curvature?",["Pennation angle","Cobb angle","T-score","Z-score"],1,"The Cobb angle measures spinal curvature (e.g. scoliosis)."],
+["An incomplete break where young, flexible bone bends and cracks on one side is a…",["Compression fracture","Wedging fracture","Greenstick fracture","Spiral fracture"],2,"Greenstick fractures are common in children."],
+["Which modality gives Hounsfield Unit densities and superb cortical bone cross-sections?",["Plain X-ray","CT","Ultrasound","DEXA"],1,"CT gives cross-sectional detail, 3D reconstructions and HU values."],
+["Which non-patient technique uses micro-focal spots to study 3D trabecular microarchitecture?",["DEXA","MR Arthrography","MicroCT","Planar Radiography"],2,"MicroCT images trabecular porosity at high resolution in samples."],
+["Most sensitive for early bone marrow edema and hairline stress fractures?",["CT","Plain X-ray","MRI","DEXA"],2,"MRI detects marrow edema and stress fractures before X-ray shows them."],
+["A DEXA T-score of −1.8 is classified as…",["Normal","Osteopenia","Osteoporosis","Severe osteoporosis"],1,"−1.0 to −2.5 is osteopenia (low bone mass)."],
+["What T-score threshold defines osteoporosis?",["≥ −1.0","Between −1.0 and −2.5","Below −2.5","Below 0"],2,"T-score below −2.5 = osteoporosis."],
+["Which DEXA value compares bone density with an age- and sex-matched group?",["T-score","Z-score","Cobb angle","Hounsfield Unit"],1,"Z-score = age/sex-matched; T-score = young healthy adult."],
+["Which movement decreases the angle between two bones in the sagittal plane?",["Extension","Abduction","Flexion","Adduction"],2,"Flexion decreases the joint angle."],
+["Moving a limb away from the midline in the frontal plane is…",["Adduction","Abduction","Inversion","Pronation"],1,"Abduction = away from the midline."],
+["Turning a limb’s anterior surface toward the midline is…",["External rotation","Internal rotation","Eversion","Supination"],1,"Internal (medial) rotation turns the anterior surface inward."],
+["Lifting the foot upward toward the shin is…",["Plantarflexion","Dorsiflexion","Eversion","Inversion"],1,"Dorsiflexion lifts the foot toward the anterior leg."],
+["Turning the sole of the foot inward is…",["Eversion","Inversion","Pronation","Abduction"],1,"Inversion turns the plantar surface toward the midline."],
+["Rotating the forearm so the palm faces anteriorly or upward is…",["Pronation","Supination","Radial deviation","Ulnar deviation"],1,"Supination: palm up. (Soup in the palm!)"],
+["Moving the wrist toward the thumb side is…",["Ulnar deviation","Radial deviation","Pronation","Palmar flexion"],1,"Radial deviation (abduction) moves toward the thumb/radius side."],
+["The glenohumeral joint is between which two bones?",["Humerus and ulna","Scapula and humerus","Clavicle and scapula","Radius and humerus"],1,"Humeral head + glenoid cavity of the scapula."],
+["The humeroulnar joint is between the humerus and which bone?",["Radius","Ulna","Scapula","Carpal"],1,"Humerus + ulna at the elbow."],
+["Which joint links the lower limb to the axial skeleton via the pelvis?",["Glenohumeral joint","Tibiofemoral joint","Coxal (hip) joint","Pubic symphysis"],2,"The hip joint joins the pelvis to the femoral head."],
+["In pronation and supination, which bone rotates around the fairly stationary ulna?",["Humerus","Radius","Clavicle","Scapula"],1,"The radius rotates around the ulna."],
+["How many metacarpals are in one hand?",["5","8","7","14"],0,"5 metacarpals per hand."],
+["How many phalanges are in one hand or foot?",["10","12","14","16"],2,"14: two in the thumb/big toe, three in each other digit."],
+["How many carpal bones are in one wrist?",["7","8","12","14"],1,"8 carpals per wrist (16 total)."],
+["How many tarsal bones are in one foot?",["7","8","5","10"],0,"7 tarsals per foot (14 total)."],
+["Which modality shows superficial tendons moving in real time with no ionizing radiation?",["CT","Plain X-ray","Ultrasound","DEXA"],2,"Ultrasound is dynamic, real-time and radiation-free."],
+["Which measurements describe skeletal muscle architecture on ultrasound?",["Cobb angle and T-score","Fascicle length and pennation angle","Attenuation coefficient and HU","Z-score and joint clearance"],1,"Fascicle length and pennation angle."],
+["Why does compact cortical bone look bright white on a plain X-ray?",["It strongly absorbs (attenuates) X-rays","Low density lets X-rays pass","High fat content reflects X-rays","Air in the marrow spaces"],0,"Dense bone attenuates X-rays, so it appears white (radiopaque)."],
+["How do fat or air appear on a plain X-ray?",["Bright white","Radiopaque gray","Dark or black (radiolucent)","Bright blue"],2,"Air and fat transmit X-rays easily: dark/black."],
+["Which pair is ordered when intra-articular contrast is needed to find small cartilage defects?",["Plain X-ray or DEXA","CT or MR arthrography","MicroCT or ultrasound","DEXA or fluoroscopy"],1,"Arthrography: contrast injected into the joint, imaged by CT or MRI."],
+["What connects the quadriceps across the anterior knee to the patella?",["Patellar ligament","Quadriceps tendon","Anterior cruciate ligament","Iliotibial band"],1,"Quadriceps tendon: muscle to the patella’s superior border."],
+["The structure from the patella’s inferior pole to the tibial tuberosity is a…",["Tendon","Ligament","Bursa","Cartilaginous disc"],1,"Patellar ligament: bone to bone. (Many texts also call it the patellar tendon.)"],
+["On sagittal spinal CT, vertebral body collapse and height loss from load or trauma is a…",["Greenstick fracture","Compression/wedging fracture","Spiral shaft fracture","Sutural separation"],1,"Height loss or anterior collapse = compression/wedging fracture."]
+];
+var T=[[0,"Imaging picks"],[4,"Bones"],[13,"Soft tissue & joints"],[21,"X-ray, CT, MRI, DEXA"],[31,"Movements"],[38,"Joints & bone counts"],[46,"Ultrasound & knee"]];
+function tp(i){var n=0;for(var k=0;k<T.length;k++)if(T[k][0]<=i)n=k;return n}
+var app=document.getElementById("app"),S={},missed=[];
+function sh(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function home(){
+S={};
+app.innerHTML='<h1>Bones &amp; imaging quiz</h1><p class="mut">54 questions from Lecture 5: skeleton, tissues, joints, movements and imaging. Answer, get instant feedback, build a streak.</p>'
++'<button class="btn main" onclick="go(10)"><b>Quick round</b>10 random questions</button>'
++'<button class="btn" onclick="go(54)"><b>Full run</b>All 54, shuffled</button>'
++(missed.length?'<button class="btn" onclick="go(0)"><b>Weak spots</b>Retry the '+missed.length+' you missed</button>':'')
++T.map(function(t,k){return '<button class="btn" onclick="go(-'+(k+1)+')"><b>'+t[1]+'</b>One topic only</button>'}).join("");}
+function go(n){
+var ids=[];for(var i=0;i<Q.length;i++)ids.push(i);
+if(n===0)ids=missed.slice();else if(n<0)ids=ids.filter(function(i){return tp(i)===-n-1});
+ids=sh(ids);if(n>0)ids=ids.slice(0,n);
+S={ids:ids,p:0,sc:0,st:0,best:0,miss:[],tt:{},done:false};show();}
+function show(){
+if(S.p>=S.ids.length)return end();
+var i=S.ids[S.p],q=Q[i],o=sh([0,1,2,3]);S.cur={i:i,o:o,a:false};
+var L="ABCD";
+app.innerHTML='<div class="top"><span>Question '+(S.p+1)+' of '+S.ids.length+'</span><span>'+(S.st>1?S.st+' in a row 🔥':'Score '+S.sc)+'</span></div>'
++'<div class="bar"><i style="width:'+(S.p/S.ids.length*100)+'%"></i></div>'
++'<div class="tag">'+T[tp(i)][1]+'</div><p class="q">'+q[0]+'</p>'
++o.map(function(k,n){return '<button class="opt" onclick="pick('+n+')"><span>'+L[n]+'</span>'+q[1][k]+'</button>'}).join("")
++'<div id="fb"></div>';}
+function pick(n){
+var c=S.cur;if(c.a)return;c.a=true;var q=Q[c.i],ok=c.o[n]===q[2],b=app.querySelectorAll(".opt"),t=tp(c.i);
+S.tt[t]=S.tt[t]||[0,0];S.tt[t][1]++;
+b.forEach(function(x,k){x.disabled=true;if(c.o[k]===q[2])x.classList.add("ok");else if(k===n)x.classList.add("no")});
+if(ok){S.sc++;S.st++;S.tt[t][0]++;if(S.st>S.best)S.best=S.st}else{S.st=0;S.miss.push(c.i)}
+var msg=ok?(S.st>=5?"Unstoppable! ":S.st>=3?"Streak! ":"Correct! "):"Not quite. ";
+document.getElementById("fb").innerHTML='<div class="fb '+(ok?"ok":"no")+'"><b>'+msg+'</b>'+q[3]+'</div><button class="btn main" id="nx" style="text-align:center" onclick="S.p++;show()">'+(S.p+1>=S.ids.length?"See results":"Next question")+'</button>';
+document.getElementById("nx").focus();}
+function end(){
+var n=S.ids.length,pc=Math.round(S.sc/n*100);
+if(S.miss.length||S.ids.length)missed=S.miss.slice();
+var r=pc>=90?"Radiology-ready 🦴":pc>=70?"Solid skeleton":pc>=50?"Getting there":"Back to the bone yard";
+app.innerHTML='<p class="mut">Round complete</p><div class="big">'+S.sc+'/'+n+'</div><h1>'+r+'</h1><p class="mut">Best streak: '+S.best+' in a row</p>'
++Object.keys(S.tt).map(function(k){var v=S.tt[k];return '<div class="row"><div>'+T[k][1]+'</div><div class="bar"><i style="width:'+(v[0]/v[1]*100)+'%"></i></div><div>'+v[0]+'/'+v[1]+'</div></div>'}).join("")
++(missed.length?'<button class="btn main" style="text-align:center" onclick="go(0)">Retry '+missed.length+' missed</button>':'<p><b>Perfect round, nothing to review.</b></p>')
++'<button class="btn" style="text-align:center" onclick="home()">Back to menu</button>';}
+document.addEventListener("keydown",function(e){
+if(!S.cur||S.p>=S.ids.length)return;var k="1234abcd".indexOf(e.key.toLowerCase());
+if(k>-1&&!S.cur.a)pick(k%4)});
+home();
+</script></body></html>
